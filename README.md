@@ -21,7 +21,7 @@ front end project, implemented throught react js
 
 - react
 - react-dom
-- react-router
+- react-router-dom
 - bootstrap
 - axios (http)
 
