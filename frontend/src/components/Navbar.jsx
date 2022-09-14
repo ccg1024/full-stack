@@ -1,38 +1,102 @@
 import React from "react";
+import Logo from './logo'
 import {
+  Container,
   Box,
-  useColorMode,
-  useColorModeValue,
-  Text,
+  Link,
+  Stack,
+  Heading,
   Flex,
-  Spacer,
-  Link
+  Menu,
+  MenuItem,
+  MenuButton,
+  IconButton,
+  useColorModeValue,
+  MenuList
 } from '@chakra-ui/react'
+import { HamburgerIcon } from '@chakra-ui/icons'
+import ThemeToggleButton from "./theme-toggle";
 
 
-const Navbar = () => {
-  const { toggleColorMode } = useColorMode()
-  const bg = useColorModeValue('orange.400', 'gray.900')
-  const color = useColorModeValue('whitealpha.500', 'gray.50')
+const LinkItem = ({ href, path, children }) => {
+  const active = path === href
+  const inactiveColor = useColorModeValue('gray200', 'whiteAlpha.900')
   return (
     <>
-      <Flex bg={bg} color={color}>
-        <Box p={4}>
-          <Text>This is a navbar</Text>
-        </Box>
-        <Spacer />
-        <Box p={4}>
-          <Flex gap={2}>
-            <Link href="#">Markdown</Link>
-            <Text>
-              Twe
-            </Text>
+      <Link
+        p={2}
+        bg={active ? 'glassTeal' : undefined}
+        color={active ? '#202023' : inactiveColor}
+      >
+        {children}
+      </Link>
+    </>
+  )
+}
+
+// Container 让内容保持在中间，宽度中等
+const Navbar = props => {
+  const { path } = props
+  return (
+    <>
+      <Box
+        as='nav'
+        w='100%'
+        bg={useColorModeValue('#ffffff40', '#20202380')}
+        style={{ balckdropFilter: 'blur(10px)' }}
+        zIndex={1}
+        {...props}
+      >
+        <Container
+          display='flex'
+          p={2}
+          maxW='container.md'
+          wrap='wrap'
+          align='center'
+          justify='space-between'
+        >
+          <Flex align='center'>
+            <Heading as='h1' size='lg' letterSpacing={ 'tighter' }>
+              <Logo />
+            </Heading>
           </Flex>
-        </Box>
-        <Box p={4} onClick={toggleColorMode} borderWidth='thin'>
-          Toggle
-        </Box>
-      </Flex>
+          
+          <Stack
+            direction={{ base: 'column', md: 'row' }}
+            display={{ base: 'none', md: 'flex' }}
+            width={{ base: 'full', md: 'auto' }}
+            alignItems='center'
+            flexGrow={1}
+            mt={{ base: 4, nmd: 0}}
+          >
+            <LinkItem href="/Markdown" path={path}>
+              Markdown
+            </LinkItem>
+          </Stack>
+          
+          <Box flex={1} align='right'>
+            <ThemeToggleButton />
+            <Box ml={2} display={{ base: 'inline-block', md: 'none' }}>
+              <Menu>
+                <MenuButton
+                  as={IconButton}
+                  icon={<HamburgerIcon />}
+                  variant='outline'
+                  aria-label='Options'
+                />
+                <MenuList>
+                  <Link href="/">
+                    <MenuItem>About</MenuItem>
+                  </Link>
+                  <Link href="/Markdown">
+                    <MenuItem>Markdown</MenuItem>
+                  </Link>
+                </MenuList>
+              </Menu>
+            </Box>
+          </Box>
+        </Container>
+      </Box>
     </>
   )
 }

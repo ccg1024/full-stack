@@ -6,12 +6,15 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { ChakraProvider } from '@chakra-ui/react'
 import Navbar from './components/Navbar';
+import theme from './libs/theme';
+import Fonts from './libs/fonts';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <ChakraProvider>
+  <ChakraProvider theme={theme}>
     <React.StrictMode>
-      <Navbar />
+      <Fonts />
+      <Navbar path="/" />
       <App />
     </React.StrictMode>
   </ChakraProvider>
