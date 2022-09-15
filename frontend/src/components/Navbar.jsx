@@ -45,6 +45,7 @@ const Navbar = props => {
         bg={useColorModeValue('#ffffff40', '#20202380')}
         style={{ balckdropFilter: 'blur(10px)' }}
         zIndex={1}
+        mb={2}
         {...props}
       >
         <Container
@@ -67,7 +68,8 @@ const Navbar = props => {
             width={{ base: 'full', md: 'auto' }}
             alignItems='center'
             flexGrow={1}
-            mt={{ base: 4, nmd: 0}}
+            mt={{ base: 4, md: 0 }}
+            ml={{ base: 0, md: 4 }}
           >
             <LinkItem href="/Markdown" path={path}>
               Markdown

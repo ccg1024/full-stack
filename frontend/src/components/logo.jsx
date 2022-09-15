@@ -20,7 +20,7 @@ const Logo = () => {
   const footPrintImg = `/images/footprint${useColorModeValue('', '-dark')}.png`
 
   return (
-    <Link href='/'>
+    <Link href='/' style={{ textDecoration: 'none' }}>
       <LogoBox>
         <Image src={footPrintImg} width={5} height={5} alt='logo'/>
 
