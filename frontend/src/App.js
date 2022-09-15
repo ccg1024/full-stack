@@ -3,14 +3,22 @@ import './App.css';
 import {
   Container,
   Box,
-  Heading
+  Heading,
+  Link,
+  Button,
+  useColorModeValue
 } from '@chakra-ui/react'
+import Section from './libs/sections';
+import Paragraph from './libs/paragraph';
+import { ChevronRightIcon } from '@chakra-ui/icons';
+import { BioSection, BioYear } from './libs/bio';
+
 
 const App = () => {
   return (
     <>
       <Container>
-        <Box borderRadius='lg' bg='red' mb={6} p={3} align='center'>
+        <Box borderRadius='lg' bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')} mb={6} p={3} align='center'>
           This is a full stack project, using React and Spring boot.
         </Box>
 
@@ -22,6 +30,49 @@ const App = () => {
             <p>a small descript information.</p>
           </Box>
         </Box>
+        
+        <Section delay={0.1}>
+          <Heading as="h3" variant="section-title">
+            Work
+          </Heading>
+          <Paragraph>
+            This is a paragraph information for some work.
+            This is a paragraph information for some work.
+            This is a paragraph information for some work.
+            This is a Link for some {' '}
+            <Link href="www.baidu.com">info</Link>.
+          </Paragraph>
+          <Box align='center' my={4}>
+            <Link href='/' style={{ textDecoration: 'none' }}>
+              <Button rightIcon={<ChevronRightIcon />} colorScheme='teal'>
+                My protfile
+              </Button>
+            </Link>
+          </Box>
+        </Section>
+
+        <Section delay={0.2}>
+          <Heading as="h3" variant="section-title">
+            Bio
+          </Heading>
+          <BioSection>
+            <BioYear>2019</BioYear>
+            Discover the new coronavirus
+          </BioSection>
+          <BioSection>
+            <BioYear>2020</BioYear>
+            ...
+          </BioSection>
+        </Section>
+
+        <Section delay={0.3}>
+          <Heading as="h3" variant="section-title">
+            I love
+          </Heading>
+          <Paragraph>
+            Some thing like...
+          </Paragraph>
+        </Section>
       </Container>
     </>
   )
