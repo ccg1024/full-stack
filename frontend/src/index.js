@@ -1,22 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './css/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
-import Navbar from './components/Navbar';
 import theme from './libs/theme';
 import Fonts from './libs/fonts';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Markdown from './markdown';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ChakraProvider theme={theme}>
     <React.StrictMode>
       <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
-      <Fonts />
-      <Navbar path="/" />
-      <App />
+      <BrowserRouter>
+        <Fonts />
+        <Routes>
+          <Route path='/' element={<App />}/>
+          <Route path='/markdown' element={<Markdown />} />
+        </Routes>
+      </BrowserRouter>
     </React.StrictMode>
   </ChakraProvider>
 );

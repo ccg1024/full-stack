@@ -27,6 +27,7 @@ const LinkItem = ({ href, path, children }) => {
         p={2}
         bg={active ? 'glassTeal' : undefined}
         color={active ? '#202023' : inactiveColor}
+        href={href}
       >
         {children}
       </Link>
@@ -71,8 +72,11 @@ const Navbar = props => {
             mt={{ base: 4, md: 0 }}
             ml={{ base: 0, md: 4 }}
           >
-            <LinkItem href="/Markdown" path={path}>
+            <LinkItem href="/markdown" path={path}>
               Markdown
+            </LinkItem>
+            <LinkItem href="/others" path={path}>
+              Others
             </LinkItem>
           </Stack>
           
@@ -87,10 +91,10 @@ const Navbar = props => {
                   aria-label='Options'
                 />
                 <MenuList>
-                  <Link href="/">
+                  <Link href="/" style={{ textDecoration: 'none' }}>
                     <MenuItem>About</MenuItem>
                   </Link>
-                  <Link href="/Markdown">
+                  <Link href="/Markdown" style={{ textDecoration: 'none' }}>
                     <MenuItem>Markdown</MenuItem>
                   </Link>
                 </MenuList>

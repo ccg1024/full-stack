@@ -1,5 +1,5 @@
 import React from 'react'
-import './App.css';
+import './css/App.css';
 import {
   Container,
   Box,
@@ -12,11 +12,14 @@ import Section from './libs/sections';
 import Paragraph from './libs/paragraph';
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import { BioSection, BioYear } from './libs/bio';
+import Navbar from './components/Navbar';
 
 
 const App = () => {
   return (
     <>
+
+      <Navbar path="/" />
       <Container>
         <Box borderRadius='lg' bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')} mb={6} p={3} align='center'>
           This is a full stack project, using React and Spring boot.
