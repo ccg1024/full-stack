@@ -22,6 +22,7 @@ front end project, implemented throught react js
 - react
 - react-dom
 - react-router-dom
+- framer-motion
 - bootstrap
 - chakra-ui
 - axios (http)
@@ -38,3 +39,7 @@ For example:
 
 **Post(http://localhost:8080/book)**
 > add book information from submitted form
+
+**前端页面参考内容资料**
+
+- https://www.youtube.com/watch?v=bSMZgXzC9AA&t=2708s
