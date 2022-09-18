@@ -9,6 +9,7 @@ import theme from './libs/theme';
 import Fonts from './libs/fonts';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Markdown from './markdown';
+import NotFound from './notfound';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -21,6 +22,7 @@ root.render(
         <Routes>
           <Route path='/' element={<App />}/>
           <Route path='/markdown' element={<Markdown />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>
