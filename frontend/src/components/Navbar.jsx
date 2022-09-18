@@ -45,8 +45,7 @@ const Navbar = props => {
         w='100%'
         bg={useColorModeValue('#ffffff40', '#20202380')}
         style={{ balckdropFilter: 'blur(10px)' }}
-        zIndex={1}
-        mb={2}
+        zIndex={2}
         {...props}
       >
         <Container
@@ -94,7 +93,7 @@ const Navbar = props => {
                   <Link href="/" style={{ textDecoration: 'none' }}>
                     <MenuItem>About</MenuItem>
                   </Link>
-                  <Link href="/Markdown" style={{ textDecoration: 'none' }}>
+                  <Link href="/markdown" style={{ textDecoration: 'none' }}>
                     <MenuItem>Markdown</MenuItem>
                   </Link>
                 </MenuList>
