@@ -23,6 +23,7 @@ front end project, implemented throught react js
 - react-dom
 - react-router-dom
 - framer-motion
+- three.js
 - bootstrap
 - chakra-ui
 - axios (http)
