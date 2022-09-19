@@ -61,7 +61,7 @@ const Navbar = props => {
               <Logo />
             </Heading>
           </Flex>
-          
+
           <Stack
             direction={{ base: 'column', md: 'row' }}
             display={{ base: 'none', md: 'flex' }}
@@ -78,7 +78,7 @@ const Navbar = props => {
               Others
             </LinkItem>
           </Stack>
-          
+
           <Box flex={1} align='right'>
             <ThemeToggleButton />
             <Box ml={2} display={{ base: 'inline-block', md: 'none' }}>
@@ -88,7 +88,7 @@ const Navbar = props => {
                   icon={<HamburgerIcon />}
                   variant='outline'
                   aria-label='Options'
-                />
+                  />
                 <MenuList>
                   <Link href="/" style={{ textDecoration: 'none' }}>
                     <MenuItem>About</MenuItem>

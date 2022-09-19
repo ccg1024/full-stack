@@ -9,7 +9,7 @@ export const DogSpinner = () => (
     top="50%"
     ml="calc(0px - var(--spinner-size) / 2)"
     mt="calc(0px - var(--spinner-size))"
-  />
+    />
 )
 
 export const DogContainer = forwardRef(({ children }, ref) => (

@@ -24,14 +24,14 @@ const App = () => {
       <VoxelDog />
       <Container>
         <AnimatePresence
-        exitBeforeEnter
-        initial={true}
+          exitBeforeEnter
+          initial={true}
         >
           <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -20, opacity: 0 }}
-          transition={{ duration: 0.5 }}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -20, opacity: 0 }}
+            transition={{ duration: 0.5 }}
           >
             <Box borderRadius='lg' bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')} mb={6} p={3} align='center'>
               This is a full stack project, using React and Spring boot.
@@ -47,7 +47,7 @@ const App = () => {
             </Box>
           </motion.div>
         </AnimatePresence>
-        
+
         <Section delay={0.1}>
           <Heading as="h3" variant="section-title">
             Work
