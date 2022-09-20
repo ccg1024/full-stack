@@ -12,16 +12,12 @@ import Section from './libs/sections';
 import Paragraph from './libs/paragraph';
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import { BioSection, BioYear } from './libs/bio';
-import Navbar from './components/Navbar';
 import { AnimatePresence, motion } from 'framer-motion'
-import VoxelDog from './components/voxel-dog';
 
 
 const App = () => {
   return (
     <>
-      <Navbar path="/" />
-      <VoxelDog />
       <Container>
         <AnimatePresence
           exitBeforeEnter

@@ -1,6 +1,4 @@
 import React from "react";
-import Navbar from "./components/Navbar";
-import VoxelDog from "./components/voxel-dog";
 import {
   Container,
   Heading,
@@ -14,8 +12,6 @@ import { AnimatePresence, motion } from "framer-motion"
 const Markdown = () => {
   return (
     <>
-      <Navbar path='/markdown'/>
-      <VoxelDog />
       <Container>
         <AnimatePresence
           exitBeforeEnter

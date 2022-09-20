@@ -10,6 +10,8 @@ import Fonts from './libs/fonts';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Markdown from './markdown';
 import NotFound from './notfound';
+import Navbar from './components/Navbar';
+import VoxelDog from './components/voxel-dog';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -19,6 +21,8 @@ root.render(
       <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
       <BrowserRouter>
         <Fonts />
+        <Navbar/>
+        <VoxelDog />
         <Routes>
           <Route path='/' element={<App />}/>
           <Route path='/markdown' element={<Markdown />} />

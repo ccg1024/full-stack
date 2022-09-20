@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import ThemeToggleButton from "./theme-toggle";
+import { useLocation } from 'react-router-dom'
 
 
 const LinkItem = ({ href, path, children }) => {
@@ -36,8 +37,9 @@ const LinkItem = ({ href, path, children }) => {
 }
 
 // Container 让内容保持在中间，宽度中等
-const Navbar = props => {
-  const { path } = props
+const Navbar = () => {
+  const local = useLocation()
+  const path = local.pathname
   return (
     <>
       <Box
@@ -46,7 +48,6 @@ const Navbar = props => {
         bg={useColorModeValue('#ffffff40', '#20202380')}
         style={{ balckdropFilter: 'blur(10px)' }}
         zIndex={2}
-        {...props}
       >
         <Container
           display='flex'

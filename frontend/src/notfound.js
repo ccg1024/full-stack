@@ -1,6 +1,4 @@
 import React from "react";
-import Navbar from "./components/Navbar";
-import VoxelDog from "./components/voxel-dog";
 import {
   Box,
   Heading,
@@ -15,8 +13,6 @@ import {
 const NotFound = () => {
   return (
     <>
-      <Navbar path="/NotFound" />
-      <VoxelDog />
       <Container>
         <Heading as="h1">Not Found</Heading>
         <Text>The page you&apos;re lokking for was not found.</Text>
