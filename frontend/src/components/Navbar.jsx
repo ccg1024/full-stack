@@ -43,6 +43,8 @@ const Navbar = () => {
   return (
     <>
       <Box
+        position='fixed'
+        top={0}
         as='nav'
         w='100%'
         bg={useColorModeValue('#ffffff40', '#20202380')}
