@@ -21,4 +21,9 @@ public class IndexController {
     public String getIndexPage(){
         return "Hello, World";
     }
+
+    @GetMapping("/markdown")
+    public String getMarkdownList() {
+        return "Markdown list";
+    }
 }
