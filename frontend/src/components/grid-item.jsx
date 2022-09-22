@@ -29,7 +29,7 @@ export const MarkDownGridItem = ({ children, id, title, thumbnail }) => (
         placeholder='blur'
         style={{ borderRadius: '12px' }}
         />
-      <LinkOverlay href={`/markdown/${id}`}>
+      <LinkOverlay href={`/markdown/${title}?id=${id}`}>
         <Text mt={2} fontSize={20}>
           {title}
         </Text>
