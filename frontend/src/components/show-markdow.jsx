@@ -23,9 +23,11 @@ class ShowMarkdown extends Component {
   }
 
   componentDidMount() {
-    MarkdownContentService.getInfo().then((res) => {
-      this.setState({ markdown_content: res.data })
-    })
+    // MarkdownContentService.getInfo().then((res) => {
+    //   this.setState({ markdown_content: res.data })
+    // })
+
+    this.setState({ markdown_content: require("../sources/markdown/test.json") })
   }
 
   render() {
@@ -33,10 +35,25 @@ class ShowMarkdown extends Component {
       <>
         <Container>
           <MarkdownBanner />
-          <Box>
-            <Text>This is the container</Text>
+          <Box as='div' pb={5}>
+          {
+            this.state.markdown_content.map((item, index) => {
+              if (item.tag === 'h1') {
+                return <Heading as='h1' key={index} fontSize={60}>{ item.content }</Heading>
+              } else if (item.tag === 'h2') {
+                return <Heading as='h2' key={index} fontSize={50}>{ item.content }</Heading>
+              } else if (item.tag === 'h3') {
+                return <Heading as='h3' key={index} fontSize={40}>{ item.content }</Heading>
+              } else if (item.tag === 'h4') {
+                return <Heading as='h4' key={index} fontSize={30}>{ item.content }</Heading>
+              } else if (item.tag === 'h5') {
+                return <Heading as='h5' key={index} fontSize={20}>{ item.content }</Heading>
+              } else if (item.tag === 'h6') {
+                return <Heading as='h6' key={index} fontSize={10}>{ item.content }</Heading>
+              }
+            })
+          }
           </Box>
-          <p>{this.state.markdown_content}</p>
         </Container>
       </>
     )
