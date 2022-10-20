@@ -22,5 +22,24 @@
   {
     "tag": "h6",
     "content": "H6"
+  },
+  {
+    "tag": "link",
+    "href": "https://www.baidu.com",
+    "content": "linke address"
+  },
+  {
+    "tag": "img",
+    "alt": "img-alt",
+    "src": "/images/markdown/markdown.png"
+  },
+  {
+    "tag": "quote",
+    "content": "This is a quote content."
+  },
+  {
+    "tag": "code-area",
+    "language": "python",
+    "content": "def test(): return 1"
   }
 ]
