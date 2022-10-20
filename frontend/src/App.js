@@ -20,7 +20,7 @@ const App = () => {
     <>
       <Container>
         <AnimatePresence
-          exitBeforeEnter
+          mode='wait'
           initial={true}
         >
           <motion.div

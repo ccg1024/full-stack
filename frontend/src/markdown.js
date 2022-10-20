@@ -26,7 +26,7 @@ class Markdown extends Component {
       <>
         <Container>
           <AnimatePresence
-            exitBeforeEnter
+            mode='wait'
             initial={true}
           >
             <motion.div
