@@ -3,12 +3,9 @@ import {
   Container,
   Heading,
   Box,
-  Text,
   useColorModeValue,
-  Link,
-  Image
 } from '@chakra-ui/react'
-import CodeArea from './code-area'
+import MarkdownExample from './markdown_example'
 // import MarkdownContentService from '../services/MarkdownContentService'
 
 const MarkdownBanner = () => {
@@ -19,19 +16,11 @@ const MarkdownBanner = () => {
   )
 }
 
-const QuoteContent = ({props, children}) => {
-  const key = props
-  return (
-    <Box borderRadius='sm' bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')} key={key} mt={2} mb={2} pt={2} pb={2}>
-      <Text key={key}>{children}</Text>
-    </Box>
-  )
-}
 
 class ShowMarkdown extends Component {
 
   state = {
-    markdown_content: []
+    markdown_file: "test1.md"
   }
 
   componentDidMount() {
@@ -39,7 +28,7 @@ class ShowMarkdown extends Component {
     //   this.setState({ markdown_content: res.data })
     // })
 
-    this.setState({ markdown_content: require("../sources/markdown/test.json") })
+    // this.setState({ markdown_content: require("../sources/markdown/test.json") })
   }
 
   render() {
@@ -47,37 +36,7 @@ class ShowMarkdown extends Component {
       <>
         <Container>
           <MarkdownBanner />
-          <Box as='div' pb={5}>
-          {
-            this.state.markdown_content.map((item, index) => {
-              if (item.tag === 'h1') {
-                return <Heading as='h1' key={index} fontSize={60}>{ item.content }</Heading>
-              } else if (item.tag === 'h2') {
-                return <Heading as='h2' key={index} fontSize={50}>{ item.content }</Heading>
-              } else if (item.tag === 'h3') {
-                return <Heading as='h3' key={index} fontSize={40}>{ item.content }</Heading>
-              } else if (item.tag === 'h4') {
-                return <Heading as='h4' key={index} fontSize={30}>{ item.content }</Heading>
-              } else if (item.tag === 'h5') {
-                return <Heading as='h5' key={index} fontSize={20}>{ item.content }</Heading>
-              } else if (item.tag === 'h6') {
-                return <Heading as='h6' key={index} fontSize={15}>{ item.content }</Heading>
-              } else if (item.tag === 'link') {
-                return <Link href={item.href} key={index}>{ item.content }</Link>
-              } else if (item.tag === 'img') {
-                return <Image src={item.src} alt={item.alt} key={index} borderRadius={12}/>
-              } else if (item.tag === 'quote') {
-                return <QuoteContent key={index}>{ item.content }</QuoteContent>
-              } else if (item.tag === 'code-area') {
-                return (
-                  <CodeArea key={index} language={item.language}>
-                    {item.content}
-                  </CodeArea>
-                )
-              }
-              return <Text key={index}> The tag { item.tag } is not implement.</Text> })
-          }
-          </Box>
+          <MarkdownExample file_name={this.state.markdown_file}/>
         </Container>
       </>
     )

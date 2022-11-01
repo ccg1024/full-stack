@@ -1,0 +1,49 @@
+.markdown_example {
+  font-size: 1em;
+}
+.markdown_example h1 {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 3.5em;
+  margin-bottom: 20pt;
+  margin-top: 20pt;
+  font-weight: bold;
+}
+.markdown_example h2 {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 3em;
+  margin-bottom: 18pt;
+  margin-top: 18pt;
+  font-weight: bold;
+}
+.markdown_example h3 {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 2.5em;
+  margin-bottom: 16pt;
+  margin-top: 16pt;
+  font-weight: bold;
+}
+.markdown_example h4 {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 2em;
+  margin-bottom: 14pt;
+  margin-top: 14pt;
+  font-weight: bold;
+}
+.markdown_example h5 {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 1.5em;
+  margin-bottom: 12pt;
+  margin-top: 12pt;
+  font-weight: bold;
+}
+.markdown_example h6 {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 1em;
+  margin-bottom: 10pt;
+  margin-top: 10pt;
+  font-weight: bold;
+}
+.markdown_example p {
+  margin-bottom: 5pt;
+  margin-top: 5pt;
+}
