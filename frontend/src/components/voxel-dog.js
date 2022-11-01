@@ -4,9 +4,9 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { loadGLTFModel } from '../libs/model'
 import { DogSpinner, DogContainer } from './voxel-dog-loader'
 
-function easeOutCirc(x) {
-  return Math.sqrt(1 - Math.pow(x - 1, 4))
-}
+// function easeOutCirc(x) {
+//   return Math.sqrt(1 - Math.pow(x - 1, 4))
+// }
 
 const VoxelDog = () => {
   const refContainer = useRef()
@@ -79,25 +79,26 @@ const VoxelDog = () => {
       })
 
       let req = null
-      let frame = 0
+      // let frame = 0
       const animate = () => {
         req = requestAnimationFrame(animate)
 
-        frame = frame <= 100 ? frame + 1 : frame
+        // frame = frame <= 100 ? frame + 1 : frame
 
-        if (frame <= 100) {
-          const p = initialCameraPosition
-          const rotSpeed = -easeOutCirc(frame / 120) * Math.PI * 20
+        // if (frame <= 100) {
+        //   const p = initialCameraPosition
+        //   const rotSpeed = -easeOutCirc(frame / 120) * Math.PI * 20
 
-          camera.position.y = 10
-          camera.position.x =
-            p.x * Math.cos(rotSpeed) + p.z * Math.sin(rotSpeed)
-          camera.position.z =
-            p.z * Math.cos(rotSpeed) - p.x * Math.sin(rotSpeed)
-          camera.lookAt(target)
-        } else {
-          controls.update()
-        }
+        //   camera.position.y = 10
+        //   camera.position.x =
+        //     p.x * Math.cos(rotSpeed) + p.z * Math.sin(rotSpeed)
+        //   camera.position.z =
+        //     p.z * Math.cos(rotSpeed) - p.x * Math.sin(rotSpeed)
+        //   camera.lookAt(target)
+        // } else {
+        //   controls.update()
+        // }
+        controls.update()
 
         renderer.render(scene, camera)
       }

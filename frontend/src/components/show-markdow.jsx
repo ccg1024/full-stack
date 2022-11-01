@@ -8,12 +8,8 @@ import {
   Link,
   Image
 } from '@chakra-ui/react'
-import MarkdownContentService from '../services/MarkdownContentService'
-import Editor from 'react-simple-code-editor'
-import { highlight, languages } from 'prismjs/components/prism-core'
-import 'prismjs/components/prism-clike'
-import 'prismjs/components/prism-javascript'
-import 'prismjs/themes/prism.css' //Example style, you can use another
+import CodeArea from './code-area'
+// import MarkdownContentService from '../services/MarkdownContentService'
 
 const MarkdownBanner = () => {
   return (
@@ -29,22 +25,6 @@ const QuoteContent = ({props, children}) => {
     <Box borderRadius='sm' bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')} key={key} mt={2} mb={2} pt={2} pb={2}>
       <Text key={key}>{children}</Text>
     </Box>
-  )
-}
-
-const MyCodeArea = () => {
-  const [code, setCode] = React.useState(`function add(a, b) {\n  return a + b;\n}`)
-  return (
-    <Editor
-      value={code}
-      onValueChange={code => setCode(code)}
-      highlight={code => highlight(code, languages.js)}
-      padding={10}
-      style={{
-        fontFamily: '"Fira code", "Fira Mono", monospace',
-        fontSize: 12,
-      }}
-      />
   )
 }
 
@@ -81,18 +61,21 @@ class ShowMarkdown extends Component {
               } else if (item.tag === 'h5') {
                 return <Heading as='h5' key={index} fontSize={20}>{ item.content }</Heading>
               } else if (item.tag === 'h6') {
-                return <Heading as='h6' key={index} fontSize={10}>{ item.content }</Heading>
+                return <Heading as='h6' key={index} fontSize={15}>{ item.content }</Heading>
               } else if (item.tag === 'link') {
                 return <Link href={item.href} key={index}>{ item.content }</Link>
               } else if (item.tag === 'img') {
-                return <Image src={item.src} alt={item.alt} key={index}/>
+                return <Image src={item.src} alt={item.alt} key={index} borderRadius={12}/>
               } else if (item.tag === 'quote') {
                 return <QuoteContent key={index}>{ item.content }</QuoteContent>
               } else if (item.tag === 'code-area') {
-                return <MyCodeArea/>
+                return (
+                  <CodeArea key={index} language={item.language}>
+                    {item.content}
+                  </CodeArea>
+                )
               }
-              return <Text key={index}> The tag { item.tag } is not implement.</Text>
-            })
+              return <Text key={index}> The tag { item.tag } is not implement.</Text> })
           }
           </Box>
         </Container>

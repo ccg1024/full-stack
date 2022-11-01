@@ -25,7 +25,7 @@
   },
   {
     "tag": "link",
-    "href": "https://www.baidu.com",
+    "href": "/markdown",
     "content": "linke address"
   },
   {
@@ -40,6 +40,6 @@
   {
     "tag": "code-area",
     "language": "python",
-    "content": "def test(): return 1"
+    "content": "def test(): return 1\n\ndef test2():\n  return 2"
   }
 ]

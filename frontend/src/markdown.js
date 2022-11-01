@@ -39,6 +39,8 @@ class Markdown extends Component {
                 Markdown
               </Heading>
 
+              <a href="/markdown/show_markdown">test</a>
+
               <SimpleGrid columns={[1, 1, 2]} gap={6}>
                 {
                   this.state.markdown_list.map((item, index) => {
