@@ -14,54 +14,54 @@ import {
   Th,
   Td,
   TableContainer,
-  Code,
   useColorModeValue,
 } from '@chakra-ui/react'
 import ReactMarkdown from 'react-markdown'
 import '../css/markdown_example.css'
 import remarkGfm from "remark-gfm";
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import {docco} from 'react-syntax-highlighter/dist/esm/styles/hljs'
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import 'katex/dist/katex.min.css'
 
 
-const Quote = ({children}) => {
+const Quote = ({ children }) => {
   return (
     <Box
       borderRadius='5px'
       bg={useColorModeValue('whiteAlpha.500', 'whiteAlpha.200')}
       pl={2}
+      pr={2}
       mt={2}
       mb={2}
-      pt={2}
-      pb={2}
+      pt='1px'
+      pb='1px'
     >
       {children}
     </Box>
   )
 }
 
-const MarkdownLink = ({href, props, children}) => {
+const MarkdownLink = ({ href, props, children }) => {
   return (
-    <Link href={href} {...props}>
+    <Link href={href} textAlign="justify" {...props}>
       {children}
     </Link>
   )
 }
 
-const MarkdownTable = ({children}) => {
+const MarkdownTable = ({ children }) => {
   return (
     <TableContainer mb={2} mt={2}>
-      <Table variant='simple'>
+      <Table variant='simple' textAlign='left'>
         {children}
       </Table>
     </TableContainer>
   )
 }
 
-const MarkdownThead = ({props, children}) => {
+const MarkdownThead = ({ props, children }) => {
   return (
     <Thead {...props}>
       {children}
@@ -69,7 +69,7 @@ const MarkdownThead = ({props, children}) => {
   )
 }
 
-const MarkdownTbody = ({props, children}) => {
+const MarkdownTbody = ({ props, children }) => {
   return (
     <Tbody {...props}>
       {children}
@@ -77,7 +77,7 @@ const MarkdownTbody = ({props, children}) => {
   )
 }
 
-const MarkdownTr = ({props, children}) => {
+const MarkdownTr = ({ props, children }) => {
   return (
     <Tr {...props}>
       {children}
@@ -85,7 +85,7 @@ const MarkdownTr = ({props, children}) => {
   )
 }
 
-const MarkdownTh = ({props, children}) => {
+const MarkdownTh = ({ props, children }) => {
   return (
     <Th {...props}>
       {children}
@@ -93,7 +93,7 @@ const MarkdownTh = ({props, children}) => {
   )
 }
 
-const MarkdownTd = ({props, children}) => {
+const MarkdownTd = ({ props, children }) => {
   return (
     <Td {...props}>
       {children}
@@ -101,15 +101,15 @@ const MarkdownTd = ({props, children}) => {
   )
 }
 
-const MarkdownText = ({props, children}) => {
+const MarkdownText = ({ props, children }) => {
   return (
-    <Text {...props}>
+    <Text align="justify" {...props}>
       {children}
     </Text>
   )
 }
 
-const MarkdownImage = ({src, props, children}) => {
+const MarkdownImage = ({ src, props, children }) => {
   return (
     <Image src={src} {...props}>
       {children}
@@ -117,15 +117,15 @@ const MarkdownImage = ({src, props, children}) => {
   )
 }
 
-const MarkdownListItem = ({props, children}) => {
+const MarkdownListItem = ({ props, children }) => {
   return (
-    <ListItem {...props}>
+    <ListItem textAlign='justify' {...props}>
       {children}
     </ListItem>
   )
 }
 
-const MarkdownUList = ({props, children}) => {
+const MarkdownUList = ({ props, children }) => {
   return (
     <UnorderedList {...props}>
       {children}
@@ -133,7 +133,7 @@ const MarkdownUList = ({props, children}) => {
   )
 }
 
-const MarkdownOList = ({props, children}) => {
+const MarkdownOList = ({ props, children }) => {
   return (
     <OrderedList {...props}>
       {children}
@@ -142,7 +142,7 @@ const MarkdownOList = ({props, children}) => {
 }
 
 
-const MarkdownExample = ({file_name}) => {
+const MarkdownExample = ({ file_name }) => {
   const [post, setPost] = useState('')
 
   useEffect(() => {
@@ -168,7 +168,7 @@ const MarkdownExample = ({file_name}) => {
       tr: MarkdownTr,
       td: MarkdownTd,
       th: MarkdownTh,
-      code({node, inline, className, children, ...props}) {
+      code({ node, inline, className, children, ...props }) {
         const match = /language-(\w+)/.exec(className || '')
         return !inline && match ? (
           <SyntaxHighlighter
@@ -177,19 +177,19 @@ const MarkdownExample = ({file_name}) => {
             language={match[1]}
             showLineNumbers='true'
             PreTag="div"
-            customStyle={{marginTop: '10px', marginBottom: '10px', borderRadius: '5px'}}
+            customStyle={{ marginTop: '10px', marginBottom: '10px', borderRadius: '5px' }}
             {...props}
           />
         ) : (
-            <Code className={className} {...props}>
-              {children}
-            </Code>
-          )
+          <code className={className} {...props}>
+            {children}
+          </code>
+        )
       }
     }}
     remarkPlugins={[remarkGfm, remarkMath]}
     rehypePlugins={[rehypeKatex]}
-    />
+  />
 }
 
 

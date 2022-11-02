@@ -36,7 +36,7 @@ class ShowMarkdown extends Component {
       <>
         <Container>
           <MarkdownBanner />
-          <MarkdownExample file_name={this.state.markdown_file}/>
+          <MarkdownExample file_name={this.state.markdown_file} />
         </Container>
       </>
     )
