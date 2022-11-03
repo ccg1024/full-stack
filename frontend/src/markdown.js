@@ -60,9 +60,8 @@ class Markdown extends Component {
                         </MarkDownGridItem>
                       </Section>
                     )
-                })
+                  })
                 }
-
               </SimpleGrid>
             </motion.div>
           </AnimatePresence>

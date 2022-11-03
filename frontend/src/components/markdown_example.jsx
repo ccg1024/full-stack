@@ -143,13 +143,18 @@ const MarkdownOList = ({ props, children }) => {
 
 
 const MarkdownExample = ({ file_name }) => {
+
   const [post, setPost] = useState('')
 
   useEffect(() => {
-    import(`../sources/markdown/${file_name}`).then(res => {
-      fetch(res.default).then(res => res.text()).then(res => setPost(res))
-    })
-  })
+    if (file_name !== "") {
+      import(`../sources/markdown/notes${file_name}`).then(res => {
+        fetch(res.default).then(res => res.text()).then(res => setPost(res))
+      })
+    } else {
+      setPost(`# Not Found Note`)
+    }
+  }, [file_name])
 
   return <ReactMarkdown
     className="markdown_example"

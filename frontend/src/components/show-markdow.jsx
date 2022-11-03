@@ -5,8 +5,9 @@ import {
   Box,
   useColorModeValue,
 } from '@chakra-ui/react'
+import { useParams } from 'react-router-dom'
 import MarkdownExample from './markdown_example'
-// import MarkdownContentService from '../services/MarkdownContentService'
+import MarkdownContentService from '../services/MarkdownContentService'
 
 const MarkdownBanner = () => {
   return (
@@ -16,19 +17,23 @@ const MarkdownBanner = () => {
   )
 }
 
+function withParams(Component) {
+  return props => <Component {...props} params={useParams()} />
+}
 
 class ShowMarkdown extends Component {
 
   state = {
-    markdown_file: "test1.md"
+    file_name: ""
   }
 
   componentDidMount() {
-    // MarkdownContentService.getInfo().then((res) => {
-    //   this.setState({ markdown_content: res.data })
-    // })
+    let { id } = this.props.params
+    MarkdownContentService.getInfo(id).then((res) => {
+      this.setState({ file_name: res.data })
+    }).catch(() => {
 
-    // this.setState({ markdown_content: require("../sources/markdown/test.json") })
+    })
   }
 
   render() {
@@ -36,11 +41,13 @@ class ShowMarkdown extends Component {
       <>
         <Container>
           <MarkdownBanner />
-          <MarkdownExample file_name={this.state.markdown_file} />
+          <MarkdownExample file_name={this.state.file_name} />
         </Container>
       </>
     )
   }
+
 }
 
-export default ShowMarkdown
+
+export default withParams(ShowMarkdown)

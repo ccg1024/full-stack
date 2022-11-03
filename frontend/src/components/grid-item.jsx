@@ -10,7 +10,7 @@ export const GridItem = ({ children, href, title, thumbnail }) => (
         placeholder='blur'
         loading='lazy'
         style={{ borderRadius: '12px' }}
-        />
+      />
       <LinkOverlay href={href} target="_blank">
         <Text mt={2}>{title}</Text>
       </LinkOverlay>
@@ -19,6 +19,8 @@ export const GridItem = ({ children, href, title, thumbnail }) => (
   </Box>
 )
 // target="_blank" open link in new window
+//
+
 
 export const MarkDownGridItem = ({ children, id, title, thumbnail }) => (
   <Box w="100%" align="center">
@@ -28,8 +30,8 @@ export const MarkDownGridItem = ({ children, id, title, thumbnail }) => (
         alt={title}
         placeholder='blur'
         style={{ borderRadius: '12px' }}
-        />
-      <LinkOverlay href={`/markdown/${title}?id=${id}`}>
+      />
+      <LinkOverlay href={`/markdown/${id}`} >
         <Text mt={2} fontSize={20}>
           {title}
         </Text>

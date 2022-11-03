@@ -18,20 +18,18 @@ import ShowMarkdown from './components/show-markdow';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ChakraProvider theme={theme}>
-    <React.StrictMode>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
-      <BrowserRouter>
-        <Fonts />
-        <Navbar/>
-        <VoxelDog />
-        <Routes>
-          <Route path='/' element={<App />}/>
-          <Route path='/markdown' element={<Markdown />} />
-          <Route path='/markdown/*' element={<ShowMarkdown />}/>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </React.StrictMode>
+    <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+    <BrowserRouter>
+      <Fonts />
+      <Navbar />
+      <VoxelDog />
+      <Routes>
+        <Route path='/' element={<App />} />
+        <Route path='/markdown' element={<Markdown />} />
+        <Route path='/markdown/:id' element={<ShowMarkdown />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   </ChakraProvider>
 );
 
