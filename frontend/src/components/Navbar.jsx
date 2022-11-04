@@ -60,7 +60,7 @@ const Navbar = () => {
           justify='space-between'
         >
           <Flex align='center'>
-            <Heading as='h1' size='lg' letterSpacing={ 'tighter' }>
+            <Heading as='h1' size='lg' letterSpacing={'tighter'}>
               <Logo />
             </Heading>
           </Flex>
@@ -77,6 +77,9 @@ const Navbar = () => {
             <LinkItem href="/markdown" path={path}>
               Markdown
             </LinkItem>
+            <LinkItem href="/editor" path={path}>
+              Editor
+            </LinkItem>
             <LinkItem href="/others" path={path}>
               Others
             </LinkItem>
@@ -91,7 +94,7 @@ const Navbar = () => {
                   icon={<HamburgerIcon />}
                   variant='outline'
                   aria-label='Options'
-                  />
+                />
                 <MenuList>
                   <Link href="/" style={{ textDecoration: 'none' }}>
                     <MenuItem>About</MenuItem>

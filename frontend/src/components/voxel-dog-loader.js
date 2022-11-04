@@ -9,7 +9,7 @@ export const DogSpinner = () => (
     top="50%"
     ml="calc(0px - var(--spinner-size) / 2)"
     mt="calc(0px - var(--spinner-size))"
-    />
+  />
 )
 
 export const DogContainer = forwardRef(({ children }, ref) => (
@@ -17,10 +17,10 @@ export const DogContainer = forwardRef(({ children }, ref) => (
     ref={ref}
     className="voxel-dog"
     m="auto"
-    mt={['-20px', '-60px', '-120px']}
-    mb={['-50px', '-50px', '-50px']}
-    w={[280, 480, 640]}
-    h={[280, 480, 640]}
+    mt={['0px', '0px', '0px']}
+    mb={['0px', '0px', '0px']}
+    w={[80, 280, 440]}
+    h={[80, 260, 400]}
     position="relative"
   >
     {children}

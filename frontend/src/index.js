@@ -13,6 +13,7 @@ import NotFound from './notfound';
 import Navbar from './components/Navbar';
 import VoxelDog from './components/voxel-dog';
 import ShowMarkdown from './components/show-markdow';
+import Editor from './editor';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -27,6 +28,7 @@ root.render(
         <Route path='/' element={<App />} />
         <Route path='/markdown' element={<Markdown />} />
         <Route path='/markdown/:id' element={<ShowMarkdown />} />
+        <Route path='/editor' element={<Editor />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

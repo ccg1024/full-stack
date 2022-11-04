@@ -50,5 +50,62 @@
 .markdown_example p {
   margin-bottom: 10pt;
   margin-top: 10pt;
-  /* text-align: justify; */
+}
+
+/* for eidtor style, make the font and spce smaller */
+
+.markdown_editor {
+  font-size: 1em;
+  padding: 2px 4px 2px 4px;
+}
+
+.markdown_editor h1 {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 2em;
+  margin-bottom: 8pt;
+  margin-top: 8pt;
+  font-weight: bold;
+  border-bottom: 2px;
+  border-style: solid;
+}
+.markdown_editor h2 {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 1.8em;
+  margin-bottom: 6pt;
+  margin-top: 6pt;
+  font-weight: bold;
+  border-bottom: 2px;
+  border-style: dashed;
+}
+.markdown_editor h3 {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 1.6em;
+  margin-bottom: 4pt;
+  margin-top: 4pt;
+  font-weight: bold;
+}
+.markdown_editor h4 {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 1.4em;
+  margin-bottom: 4pt;
+  margin-top: 4pt;
+  font-weight: bold;
+}
+.markdown_editor h5 {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 1.2em;
+  margin-bottom: 4pt;
+  margin-top: 4pt;
+  font-weight: bold;
+}
+.markdown_editor h6 {
+  font-family: 'M PLUS Rounded 1c';
+  font-size: 1em;
+  margin-bottom: 2pt;
+  margin-top: 2pt;
+  font-weight: bold;
+}
+.markdown_editor p {
+  margin-bottom: 2pt;
+  margin-top: 2pt;
 }
