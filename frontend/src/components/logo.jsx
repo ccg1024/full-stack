@@ -1,6 +1,6 @@
-import { Image, Link, Text, useColorModeValue } from '@chakra-ui/react'
+import { Image, Text, useColorModeValue } from '@chakra-ui/react'
 import styled from '@emotion/styled'
-
+import { Link } from 'react-router-dom'
 
 const LogoBox = styled.span`
   font-weight: bold;
@@ -20,19 +20,19 @@ const Logo = () => {
   const footPrintImg = `/images/footprint${useColorModeValue('', '-dark')}.png`
 
   return (
-    <Link href='/' style={{ textDecoration: 'none' }}>
+    <Link to="/">
       <LogoBox>
-        <Image src={footPrintImg} width={5} height={5} alt='logo'/>
+        <Image src={footPrintImg} width={5} height={5} alt="logo" />
 
         <Text
           color={useColorModeValue('gray.800', 'whiteAlpha.900')}
-          fontFamily='M PLUS Rounded 1c'
-          fontWeight='bold'
-          ml={3}>
-          William
+          fontFamily="'M PLUS Rounded 1c'"
+          fontWeight="bold"
+          ml={3}
+        >
+          Crazyboy
         </Text>
       </LogoBox>
-
     </Link>
   )
 }

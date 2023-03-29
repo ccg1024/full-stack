@@ -1,5 +1,5 @@
+import { Link } from 'react-router-dom'
 import { Box, Text, LinkBox, LinkOverlay, Image } from '@chakra-ui/react'
-
 
 export const GridItem = ({ children, href, title, thumbnail }) => (
   <Box w="100%" align="center">
@@ -7,8 +7,8 @@ export const GridItem = ({ children, href, title, thumbnail }) => (
       <Image
         src={thumbnail}
         alt={title}
-        placeholder='blur'
-        loading='lazy'
+        placeholder="blur"
+        loading="lazy"
         style={{ borderRadius: '12px' }}
       />
       <LinkOverlay href={href} target="_blank">
@@ -21,23 +21,19 @@ export const GridItem = ({ children, href, title, thumbnail }) => (
 // target="_blank" open link in new window
 //
 
-
 export const MarkDownGridItem = ({ children, id, title, thumbnail }) => (
   <Box w="100%" align="center">
-    <LinkBox cursor="pointer">
+    <Link to={`/markdown/${id}`}>
       <Image
         src={thumbnail}
         alt={title}
-        placeholder='blur'
+        placeholder="blur"
         style={{ borderRadius: '12px' }}
       />
-      <LinkOverlay href={`/markdown/${id}`} >
-        <Text mt={2} fontSize={20}>
-          {title}
-        </Text>
-      </LinkOverlay>
+      <Text mt={2} fontSize={20}>
+        {title}
+      </Text>
       <Text fontSize={14}>{children}</Text>
-    </LinkBox>
+    </Link>
   </Box>
 )
-

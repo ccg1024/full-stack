@@ -1,9 +1,7 @@
-import React from "react";
-import Logo from './logo'
+import React from 'react'
 import {
   Container,
   Box,
-  Link,
   Stack,
   Heading,
   Flex,
@@ -15,52 +13,87 @@ import {
   MenuList
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
-import ThemeToggleButton from "./theme-toggle";
-import { useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import { Global } from '@emotion/react'
 
+import Logo from './logo'
+import ThemeToggleButton from './theme-toggle'
 
-const LinkItem = ({ href, path, children }) => {
-  const active = path === href
-  const inactiveColor = useColorModeValue('gray200', 'whiteAlpha.900')
+const NavbarLinkStyle = ({ colors }) => {
   return (
-    <>
-      <Link
-        p={2}
-        bg={active ? 'glassTeal' : undefined}
-        color={active ? '#202023' : inactiveColor}
-        href={href}
-      >
-        {children}
-      </Link>
-    </>
+    <Global
+      styles={{
+        '.active-link': {
+          backgroundColor: colors.bg,
+          padding: '6px',
+          color: colors.colorActive
+        },
+        '.inactive-link': {
+          padding: '6px',
+          color: colors.colorInactive
+        }
+      }}
+    />
   )
 }
 
+const RouteLinkItem = ({ to, children }) => {
+  return (
+    <NavLink
+      className={({ isActive }) => (isActive ? 'active-link' : 'inactive-link')}
+      to={to}
+    >
+      {children}
+    </NavLink>
+  )
+}
+
+// const LinkItem = ({ href, path, children }) => {
+//   const active = path === href
+//   const inactiveColor = useColorModeValue('gray200', 'whiteAlpha.900')
+//   return (
+//     <>
+//       <Link
+//         p={2}
+//         bg={active ? 'glassTeal' : undefined}
+//         color={active ? '#202023' : inactiveColor}
+//         href={href}
+//       >
+//         {children}
+//       </Link>
+//     </>
+//   )
+// }
+
 // Container 让内容保持在中间，宽度中等
 const Navbar = () => {
-  const local = useLocation()
-  const path = local.pathname
+  const colors = {
+    bg: useColorModeValue('#B794F4', '#88ccca'),
+    colorActive: useColorModeValue('white', 'black'),
+    colorInactive: useColorModeValue('black', 'white')
+  }
   return (
     <>
+      <NavbarLinkStyle colors={colors} />
       <Box
-        position='fixed'
+        position="fixed"
         top={0}
-        as='nav'
-        w='100%'
+        as="nav"
+        w="100%"
         bg={useColorModeValue('#ffffff40', '#20202380')}
         style={{ balckdropFilter: 'blur(10px)' }}
         zIndex={2}
       >
         <Container
-          display='flex'
+          display="flex"
           p={2}
-          maxW='container.md'
-          wrap='wrap'
-          align='center'
-          justify='space-between'
+          maxW="container.lg"
+          wrap="wrap"
+          align="center"
+          justify="space-between"
         >
-          <Flex align='center'>
-            <Heading as='h1' size='lg' letterSpacing={'tighter'}>
+          <Flex align="center">
+            <Heading as="h1" size="lg" letterSpacing={'tight'}>
               <Logo />
             </Heading>
           </Flex>
@@ -69,39 +102,39 @@ const Navbar = () => {
             direction={{ base: 'column', md: 'row' }}
             display={{ base: 'none', md: 'flex' }}
             width={{ base: 'full', md: 'auto' }}
-            alignItems='center'
+            alignItems="center"
             flexGrow={1}
             mt={{ base: 4, md: 0 }}
             ml={{ base: 0, md: 4 }}
           >
-            <LinkItem href="/markdown" path={path}>
-              Markdown
-            </LinkItem>
-            <LinkItem href="/editor" path={path}>
-              Editor
-            </LinkItem>
-            <LinkItem href="/others" path={path}>
-              Others
-            </LinkItem>
+            <RouteLinkItem to="/markdown">Markdown</RouteLinkItem>
+            <RouteLinkItem to="/editor">Editor</RouteLinkItem>
+            <RouteLinkItem to="/others">Others</RouteLinkItem>
           </Stack>
 
-          <Box flex={1} align='right'>
+          <Box flex={1} align="right">
             <ThemeToggleButton />
             <Box ml={2} display={{ base: 'inline-block', md: 'none' }}>
               <Menu>
                 <MenuButton
                   as={IconButton}
                   icon={<HamburgerIcon />}
-                  variant='outline'
-                  aria-label='Options'
+                  variant="outline"
+                  aria-label="Options"
                 />
                 <MenuList>
-                  <Link href="/" style={{ textDecoration: 'none' }}>
+                  <NavLink to="/">
                     <MenuItem>About</MenuItem>
-                  </Link>
-                  <Link href="/markdown" style={{ textDecoration: 'none' }}>
+                  </NavLink>
+                  <NavLink to="/markdown">
                     <MenuItem>Markdown</MenuItem>
-                  </Link>
+                  </NavLink>
+                  <NavLink to="/editor">
+                    <MenuItem>Editor</MenuItem>
+                  </NavLink>
+                  <NavLink to="/others">
+                    <MenuItem>Others</MenuItem>
+                  </NavLink>
                 </MenuList>
               </Menu>
             </Box>
