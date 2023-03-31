@@ -5,6 +5,7 @@ import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
 import reportWebVitals from './reportWebVitals'
 import theme from './libs/theme'
 import Fonts from './libs/fonts'
+import Login from './components/login'
 import Navbar from './components/Navbar'
 import VoxelDog from './components/voxel-dog'
 import LoadingPage from './components/page-load'
@@ -25,6 +26,7 @@ root.render(
       <Fonts />
       <Navbar />
       <VoxelDog />
+      <Login />
       <Routes>
         <Route
           path="/"

@@ -1,4 +1,5 @@
 import React from 'react'
+import PubSub from 'pubsub-js'
 import {
   Container,
   Box,
@@ -10,7 +11,8 @@ import {
   MenuButton,
   IconButton,
   useColorModeValue,
-  MenuList
+  MenuList,
+  Link
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import { NavLink } from 'react-router-dom'
@@ -72,6 +74,15 @@ const Navbar = () => {
     colorActive: useColorModeValue('white', 'black'),
     colorInactive: useColorModeValue('black', 'white')
   }
+  const isLogin = localStorage.getItem('token')
+
+  const showLogin = (module = 'login') => {
+    if (module === 'login') {
+      PubSub.publish('login-and-registe', 'login')
+    } else if (module === 'registe') {
+      PubSub.publish('login-and-registe', 'registe')
+    }
+  }
   return (
     <>
       <NavbarLinkStyle colors={colors} />
@@ -107,9 +118,31 @@ const Navbar = () => {
             mt={{ base: 4, md: 0 }}
             ml={{ base: 0, md: 4 }}
           >
-            <RouteLinkItem to="/markdown">Markdown</RouteLinkItem>
-            <RouteLinkItem to="/editor">Editor</RouteLinkItem>
-            <RouteLinkItem to="/others">Others</RouteLinkItem>
+            {isLogin ? (
+              <>
+                <RouteLinkItem to="/markdown">Markdown</RouteLinkItem>
+                <RouteLinkItem to="/editor">Editor</RouteLinkItem>
+                <RouteLinkItem to="/others">Others</RouteLinkItem>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="#"
+                  color={colors.colorInactive}
+                  onClick={() => showLogin('login')}
+                >
+                  Login
+                </Link>
+
+                <Link
+                  href="#"
+                  color={colors.colorInactive}
+                  onClick={() => showLogin('registe')}
+                >
+                  registe
+                </Link>
+              </>
+            )}
           </Stack>
 
           <Box flex={1} align="right">
@@ -123,18 +156,39 @@ const Navbar = () => {
                   aria-label="Options"
                 />
                 <MenuList>
-                  <NavLink to="/">
-                    <MenuItem>About</MenuItem>
-                  </NavLink>
-                  <NavLink to="/markdown">
-                    <MenuItem>Markdown</MenuItem>
-                  </NavLink>
-                  <NavLink to="/editor">
-                    <MenuItem>Editor</MenuItem>
-                  </NavLink>
-                  <NavLink to="/others">
-                    <MenuItem>Others</MenuItem>
-                  </NavLink>
+                  {isLogin ? (
+                    <>
+                      <NavLink to="/">
+                        <MenuItem>About</MenuItem>
+                      </NavLink>
+                      <NavLink to="/markdown">
+                        <MenuItem>Markdown</MenuItem>
+                      </NavLink>
+                      <NavLink to="/editor">
+                        <MenuItem>Editor</MenuItem>
+                      </NavLink>
+                      <NavLink to="/others">
+                        <MenuItem>Others</MenuItem>
+                      </NavLink>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        href="#"
+                        color={colors.colorInactive}
+                        onClick={() => showLogin('login')}
+                      >
+                        <MenuItem>Login</MenuItem>
+                      </Link>
+                      <Link
+                        href="#"
+                        color={colors.colorInactive}
+                        onClick={() => showLogin('registe')}
+                      >
+                        <MenuItem>Registe</MenuItem>
+                      </Link>
+                    </>
+                  )}
                 </MenuList>
               </Menu>
             </Box>
