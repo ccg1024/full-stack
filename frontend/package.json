@@ -16,6 +16,7 @@
     "bootstrap": "^5.2.1",
     "framer-motion": "^7.3.2",
     "lodash": "^4.17.21",
+    "pubsub-js": "^1.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.3",
