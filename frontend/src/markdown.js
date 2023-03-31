@@ -8,7 +8,7 @@ import { MarkDownGridItem } from './components/grid-item'
 
 const Markdown = () => {
   const [loading, setLoading] = useState(true)
-  const [markdownList, setMarkdowList] = useState(new Array())
+  const [markdownList, setMarkdowList] = useState([])
 
   useEffect(() => {
     // get markdown lsit from back-end
