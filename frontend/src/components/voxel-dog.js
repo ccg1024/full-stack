@@ -2,19 +2,30 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { loadGLTFModel } from '../libs/model'
-import { DogSpinner, DogContainer } from './voxel-dog-loader'
+import { Box, Spinner } from '@chakra-ui/react'
 
-// function easeOutCirc(x) {
-//   return Math.sqrt(1 - Math.pow(x - 1, 4))
-// }
+function easeOutCirc(x) {
+  return Math.sqrt(1 - Math.pow(x - 1, 4))
+}
 
 const VoxelDog = () => {
   const refContainer = useRef()
   const [loading, setLoading] = useState(true)
-  const refRenderer = useRef()
+  const [renderer, setRenderer] = useState()
+  const [_camera, setCamera] = useState()
+
+  const [target] = useState(new THREE.Vector3(-0.5, 1.2, 0))
+  const [initialCameraPosition] = useState(
+    new THREE.Vector3(
+      20 * Math.sin(0.2 * Math.PI),
+      10,
+      20 * Math.cos(0.2 * Math.PI)
+    )
+  )
+  const [scene] = useState(new THREE.Scene())
+  const [_controls, setControls] = useState()
 
   const handleWindowResize = useCallback(() => {
-    const { current: renderer } = refRenderer
     const { current: container } = refContainer
     if (container && renderer) {
       const scW = container.clientWidth
@@ -22,12 +33,11 @@ const VoxelDog = () => {
 
       renderer.setSize(scW, scH)
     }
-  }, [])
+  }, [renderer])
 
-  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     const { current: container } = refContainer
-    if (container) {
+    if (container && !renderer) {
       const scW = container.clientWidth
       const scH = container.clientHeight
 
@@ -39,15 +49,7 @@ const VoxelDog = () => {
       renderer.setSize(scW, scH)
       renderer.outputEncoding = THREE.sRGBEncoding
       container.appendChild(renderer.domElement)
-      refRenderer.current = renderer
-      const scene = new THREE.Scene()
-
-      const target = new THREE.Vector3(-0.5, 1.2, 0)
-      const initialCameraPosition = new THREE.Vector3(
-        20 * Math.sin(0.2 * Math.PI),
-        10,
-        20 * Math.cos(0.2 * Math.PI)
-      )
+      setRenderer(renderer)
 
       // 640 -> 240
       // 8   -> 6
@@ -62,6 +64,7 @@ const VoxelDog = () => {
       )
       camera.position.copy(initialCameraPosition)
       camera.lookAt(target)
+      setCamera(camera)
 
       const ambientLight = new THREE.AmbientLight(0xcccccc, 1)
       scene.add(ambientLight)
@@ -69,6 +72,7 @@ const VoxelDog = () => {
       const controls = new OrbitControls(camera, renderer.domElement)
       controls.autoRotate = true
       controls.target = target
+      setControls(controls)
 
       loadGLTFModel(scene, '/images/dog.glb', {
         receiveShadow: false,
@@ -79,26 +83,25 @@ const VoxelDog = () => {
       })
 
       let req = null
-      // let frame = 0
+      let frame = 0
       const animate = () => {
         req = requestAnimationFrame(animate)
 
-        // frame = frame <= 100 ? frame + 1 : frame
+        frame = frame <= 100 ? frame + 1 : frame
 
-        // if (frame <= 100) {
-        //   const p = initialCameraPosition
-        //   const rotSpeed = -easeOutCirc(frame / 120) * Math.PI * 20
+        if (frame <= 100) {
+          const p = initialCameraPosition
+          const rotSpeed = -easeOutCirc(frame / 120) * Math.PI * 20
 
-        //   camera.position.y = 10
-        //   camera.position.x =
-        //     p.x * Math.cos(rotSpeed) + p.z * Math.sin(rotSpeed)
-        //   camera.position.z =
-        //     p.z * Math.cos(rotSpeed) - p.x * Math.sin(rotSpeed)
-        //   camera.lookAt(target)
-        // } else {
-        //   controls.update()
-        // }
-        controls.update()
+          camera.position.y = 10
+          camera.position.x =
+            p.x * Math.cos(rotSpeed) + p.z * Math.sin(rotSpeed)
+          camera.position.z =
+            p.z * Math.cos(rotSpeed) - p.x * Math.sin(rotSpeed)
+          camera.lookAt(target)
+        } else {
+          controls.update()
+        }
 
         renderer.render(scene, camera)
       }
@@ -116,10 +119,28 @@ const VoxelDog = () => {
     return () => {
       window.removeEventListener('resize', handleWindowResize, false)
     }
-  }, [handleWindowResize])
+  }, [renderer, handleWindowResize])
 
   return (
-    <DogContainer ref={refContainer}>{loading && <DogSpinner />}</DogContainer>
+    <Box
+      ref={refContainer}
+      m="auto"
+      at={['-20px', '-60px', '-120px']}
+      w={[280, 480, 640]}
+      h={[280, 480, 640]}
+      position="relative"
+    >
+      {loading && (
+        <Spinner
+          size="xl"
+          position="absolute"
+          top="50%"
+          left="50%"
+          ml="calc(0px - var(--spinner-size) / 2)"
+          mt="calc(0px - var(--spinner-size) / 2)"
+        />
+      )}
+    </Box>
   )
 }
 

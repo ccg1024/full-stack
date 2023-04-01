@@ -1,7 +1,6 @@
 import { extendTheme } from '@chakra-ui/react'
 import { mode } from '@chakra-ui/theme-tools'
 
-
 const styles = {
   global: props => ({
     body: {
@@ -14,7 +13,7 @@ const components = {
   Heading: {
     variants: {
       'section-title': {
-        textDecoration: "underline",
+        textDecoration: 'underline',
         fontSize: 20,
         textUnderlineOffset: 6,
         textDecorationColor: '#525252',

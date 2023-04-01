@@ -51,23 +51,6 @@ const RouteLinkItem = ({ to, children }) => {
   )
 }
 
-// const LinkItem = ({ href, path, children }) => {
-//   const active = path === href
-//   const inactiveColor = useColorModeValue('gray200', 'whiteAlpha.900')
-//   return (
-//     <>
-//       <Link
-//         p={2}
-//         bg={active ? 'glassTeal' : undefined}
-//         color={active ? '#202023' : inactiveColor}
-//         href={href}
-//       >
-//         {children}
-//       </Link>
-//     </>
-//   )
-// }
-
 // Container 让内容保持在中间，宽度中等
 const Navbar = () => {
   const colors = {
@@ -94,6 +77,12 @@ const Navbar = () => {
       PubSub.unsubscribe(token)
     }
   }, [])
+
+  const handleLoginOut = () => {
+    localStorage.removeItem('token')
+    setLoginToken(null)
+    // maybe some code to tell server login out
+  }
 
   return (
     <>
@@ -135,6 +124,14 @@ const Navbar = () => {
                 <RouteLinkItem to="/markdown">Markdown</RouteLinkItem>
                 <RouteLinkItem to="/editor">Editor</RouteLinkItem>
                 <RouteLinkItem to="/others">Others</RouteLinkItem>
+                <Link
+                  href="/"
+                  color={colors.colorInactive}
+                  _hover={{ textDecoration: 'none' }}
+                  onClick={handleLoginOut}
+                >
+                  Login out
+                </Link>
               </>
             ) : (
               <>
@@ -142,6 +139,7 @@ const Navbar = () => {
                   href="#"
                   color={colors.colorInactive}
                   onClick={() => showLogin('login')}
+                  _hover={{ textDecoration: 'none' }}
                 >
                   Login
                 </Link>
@@ -150,6 +148,7 @@ const Navbar = () => {
                   href="#"
                   color={colors.colorInactive}
                   onClick={() => showLogin('registe')}
+                  _hover={{ textDecoration: 'none' }}
                 >
                   registe
                 </Link>
@@ -182,6 +181,14 @@ const Navbar = () => {
                       <NavLink to="/others">
                         <MenuItem>Others</MenuItem>
                       </NavLink>
+                      <Link
+                        href="/"
+                        color={colors.colorInactive}
+                        _hover={{ textDecoration: 'none' }}
+                        onClick={handleLoginOut}
+                      >
+                        <MenuItem>Login out</MenuItem>
+                      </Link>
                     </>
                   ) : (
                     <>
@@ -189,6 +196,7 @@ const Navbar = () => {
                         href="#"
                         color={colors.colorInactive}
                         onClick={() => showLogin('login')}
+                        _hover={{ textDecoration: 'none' }}
                       >
                         <MenuItem>Login</MenuItem>
                       </Link>
@@ -196,6 +204,7 @@ const Navbar = () => {
                         href="#"
                         color={colors.colorInactive}
                         onClick={() => showLogin('registe')}
+                        _hover={{ textDecoration: 'none' }}
                       >
                         <MenuItem>Registe</MenuItem>
                       </Link>
