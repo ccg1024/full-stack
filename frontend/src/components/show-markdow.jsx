@@ -236,6 +236,12 @@ const ShowDetail = () => {
   useEffect(() => {
     // according axios to get note content
     console.log(id)
+    if (id === '-1') {
+      setLoading(false)
+      fetch('http://localhost:3000/default.md')
+        .then(r => r.text())
+        .then(text => setNoteContent(text))
+    }
     axios
       .get()
       .then(response => {

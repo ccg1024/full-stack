@@ -11,7 +11,9 @@ import {
   Textarea,
   Container,
   SimpleGrid,
-  useColorModeValue
+  useColorModeValue,
+  Flex,
+  Button
 } from '@chakra-ui/react'
 import {
   Quote,
@@ -65,6 +67,7 @@ const Editor = () => {
         </Section>
 
         <Section delay={0.2}>
+          {' '}
           <SimpleGrid columns={[1, 1, 2]} spacing={2} pb={8}>
             <Box>
               <Textarea
@@ -131,6 +134,12 @@ const Editor = () => {
               />
             </Box>
           </SimpleGrid>
+        </Section>
+
+        <Section delay={0.3}>
+          <Flex justifyContent="right">
+            <Button colorScheme="teal">Save markdown</Button>
+          </Flex>
         </Section>
       </Container>
     </>

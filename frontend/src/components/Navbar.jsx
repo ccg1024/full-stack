@@ -71,8 +71,8 @@ const RouteLinkItem = ({ to, children }) => {
 // Container 让内容保持在中间，宽度中等
 const Navbar = () => {
   const colors = {
-    bg: useColorModeValue('#B794F4', '#88ccca'),
-    colorActive: useColorModeValue('white', 'black'),
+    bg: useColorModeValue('#88ccca', '#88ccca'),
+    colorActive: useColorModeValue('black', 'black'),
     colorInactive: useColorModeValue('black', 'white')
   }
   const [loginToken, setLoginToken] = useState(localStorage.getItem('token'))

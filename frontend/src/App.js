@@ -87,6 +87,13 @@ const App = () => {
           </Heading>
           <Paragraph>Some thing like...</Paragraph>
         </Section>
+
+        <Section delay={0.4}>
+          <Heading as="h3" variant="section-title">
+            Details
+          </Heading>
+          <Paragraph>Some work or blog to show...</Paragraph>
+        </Section>
       </Container>
     </>
   )
