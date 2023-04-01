@@ -28,6 +28,7 @@ const Registe = () => {
   const [isVisible, setIsVisible] = useState(false)
   const [userCharErr, setUserCharErr] = useState('')
   const [pswdCharErr, setPswdCharErr] = useState('')
+  const [pswdBCharErr, setPswdBCharErr] = useState('')
   const [registeMessage, setRegisteMessage] = useState('')
 
   const usernameChange = e => setUsername(e.target.value)
@@ -36,6 +37,51 @@ const Registe = () => {
 
   const submitData = e => {
     e.preventDefault()
+    console.log(username)
+    console.log(password)
+    console.log(passwordB)
+
+    setUserCharErr('')
+    setPswdCharErr('')
+    setPswdBCharErr('')
+
+    if (!/^[a-zA-Z0-9_]{6,10}$/.test(username)) {
+      setUserCharErr(
+        'The username is 6 to 10 characters, including letters, numbers and underscors'
+      )
+      return
+    }
+
+    if (!/^[a-zA-Z0-9_]{6,10}$/.test(password)) {
+      setPswdCharErr(
+        'The password is 6 to 10 characters, including letters, numbers and underscors'
+      )
+      return
+    }
+
+    if (password !== passwordB) {
+      setPswdBCharErr('Passwords entered twice are different')
+      return
+    }
+
+    e.target.disabled = true
+    axios
+      .post('http://127.0.0.1:5000/api/registe', { username, password })
+      .then(res => {
+        const { status } = res.data
+        if (status === 0) {
+          setIsVisible(false)
+          const { token } = res.data
+          localStorage.setItem('token', token)
+          PubSub.publish(pubsubPipe.authenticate, true)
+        } else {
+          e.target.disabled = false
+          setRegisteMessage('The username is exist')
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   useEffect(() => {
@@ -78,7 +124,7 @@ const Registe = () => {
               placeholder="username"
               onChange={_.debounce(usernameChange, 16)}
             />
-            {userCharErr ? (
+            {userCharErr === '' ? (
               ''
             ) : (
               <FormErrorMessage>{userCharErr}</FormErrorMessage>
@@ -90,7 +136,7 @@ const Registe = () => {
               placeholder="password"
               onChange={_.debounce(passwordChange, 16)}
             />
-            {pswdCharErr ? (
+            {pswdCharErr === '' ? (
               ''
             ) : (
               <FormErrorMessage>{pswdCharErr}</FormErrorMessage>
@@ -102,6 +148,11 @@ const Registe = () => {
               placeholder="password again"
               onChange={_.debounce(passwordBChange, 16)}
             />
+            {pswdBCharErr === '' ? (
+              ''
+            ) : (
+              <FormErrorMessage>{pswdBCharErr}</FormErrorMessage>
+            )}
           </FormControl>
 
           {registeMessage ? (
@@ -120,7 +171,7 @@ const Registe = () => {
           <Center>
             <Link
               href="#"
-              ml={2}
+              ml={{ base: 2, md: 4 }}
               color={useColorModeValue('white', 'black')}
               title="github"
             >
@@ -128,7 +179,7 @@ const Registe = () => {
             </Link>
             <Link
               href="#"
-              ml={2}
+              ml={{ base: 2, md: 4 }}
               color={useColorModeValue('white', 'black')}
               title="wechat"
             >
