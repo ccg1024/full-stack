@@ -1,5 +1,5 @@
-import React from 'react'
 import PubSub from 'pubsub-js'
+import React, { useState, useEffect } from 'react'
 import {
   Container,
   Box,
@@ -19,6 +19,7 @@ import { NavLink } from 'react-router-dom'
 import { Global } from '@emotion/react'
 
 import Logo from './logo'
+import { pubsubPipe } from '../config/pubsub'
 import ThemeToggleButton from './theme-toggle'
 
 const NavbarLinkStyle = ({ colors }) => {
@@ -74,15 +75,26 @@ const Navbar = () => {
     colorActive: useColorModeValue('white', 'black'),
     colorInactive: useColorModeValue('black', 'white')
   }
-  const isLogin = localStorage.getItem('token')
+  const [loginToken, setLoginToken] = useState(localStorage.getItem('token'))
 
   const showLogin = (module = 'login') => {
     if (module === 'login') {
-      PubSub.publish('login-and-registe', 'login')
+      PubSub.publish(pubsubPipe.loginRegiste, 'login')
     } else if (module === 'registe') {
-      PubSub.publish('login-and-registe', 'registe')
+      PubSub.publish(pubsubPipe.loginRegiste, 'registe')
     }
   }
+
+  useEffect(() => {
+    const token = PubSub.subscribe(pubsubPipe.authenticate, (_msg, _data) => {
+      setLoginToken(localStorage.getItem('token'))
+    })
+
+    return () => {
+      PubSub.unsubscribe(token)
+    }
+  }, [])
+
   return (
     <>
       <NavbarLinkStyle colors={colors} />
@@ -118,7 +130,7 @@ const Navbar = () => {
             mt={{ base: 4, md: 0 }}
             ml={{ base: 0, md: 4 }}
           >
-            {isLogin ? (
+            {loginToken ? (
               <>
                 <RouteLinkItem to="/markdown">Markdown</RouteLinkItem>
                 <RouteLinkItem to="/editor">Editor</RouteLinkItem>
@@ -156,7 +168,7 @@ const Navbar = () => {
                   aria-label="Options"
                 />
                 <MenuList>
-                  {isLogin ? (
+                  {loginToken ? (
                     <>
                       <NavLink to="/">
                         <MenuItem>About</MenuItem>
