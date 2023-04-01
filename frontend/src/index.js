@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals'
 import theme from './libs/theme'
 import Fonts from './libs/fonts'
 import Login from './components/login'
+import Registe from './components/registe'
 import Navbar from './components/Navbar'
 import VoxelDog from './components/voxel-dog'
 import LoadingPage from './components/page-load'
@@ -27,6 +28,7 @@ root.render(
       <Navbar />
       <VoxelDog />
       <Login />
+      <Registe />
       <Routes>
         <Route
           path="/"
