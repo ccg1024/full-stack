@@ -4,6 +4,8 @@ This project was created through `create-react-app` scaffolding, and it is only 
 
 Designed to create a two-color themed online portfolio web app.
 
+> Just did a simple test with express server
+
 ### screenshot
 
 #### PC
