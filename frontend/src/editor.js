@@ -1,3 +1,4 @@
+import axios from 'axios'
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
@@ -13,7 +14,16 @@ import {
   SimpleGrid,
   useColorModeValue,
   Flex,
-  Button
+  Input,
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure
 } from '@chakra-ui/react'
 import {
   Quote,
@@ -52,11 +62,33 @@ const EditorBanner = () => {
 }
 
 const Editor = () => {
-  let [value, setValue] = useState('')
+  const [value, setValue] = useState('')
+  const [title, setTitle] = useState('')
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
-  let handleInputChange = e => {
-    let inputValue = e.target.value
-    setValue(inputValue)
+  const handleInputChange = e => {
+    setValue(e.target.value)
+  }
+
+  const handleSaveNote = () => {
+    console.log('current file content: ', value)
+    // send data to server
+    const noteContent = { title, content: value }
+    const token = localStorage.getItem('token')
+    axios
+      .post('http://127.0.0.1:5000/editor', noteContent, {
+        headers: { Authorization: token }
+      })
+      .then(res => {
+        const { status } = res.data
+        if (status === 0) {
+          // show modal
+          onOpen()
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   return (
@@ -67,7 +99,12 @@ const Editor = () => {
         </Section>
 
         <Section delay={0.2}>
-          {' '}
+          <Input
+            mb={4}
+            borderColor={useColorModeValue('#000000', '#ffffff')}
+            placeholder="Note Title"
+            onChange={e => setTitle(e.target.value)}
+          />
           <SimpleGrid columns={[1, 1, 2]} spacing={2} pb={8}>
             <Box>
               <Textarea
@@ -138,10 +175,26 @@ const Editor = () => {
 
         <Section delay={0.3}>
           <Flex justifyContent="right">
-            <Button colorScheme="teal">Save markdown</Button>
+            <Button colorScheme="teal" onClick={handleSaveNote}>
+              Save markdown
+            </Button>
           </Flex>
         </Section>
       </Container>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Save note success</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>successful save file</ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              confirm
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   )
 }

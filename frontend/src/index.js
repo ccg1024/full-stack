@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
@@ -29,49 +29,15 @@ root.render(
       <VoxelDog />
       <Login />
       <Registe />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <React.Suspense fallback={<LoadingPage />}>
-              <App />
-            </React.Suspense>
-          }
-        />
-        <Route
-          path="/markdown"
-          element={
-            <React.Suspense fallback={<LoadingPage />}>
-              <Markdown />
-            </React.Suspense>
-          }
-        />
-        <Route
-          path="/markdown/:id"
-          element={
-            <React.Suspense fallback={<LoadingPage />}>
-              <ShowDetail />
-            </React.Suspense>
-          }
-        />
-        <Route
-          path="/editor"
-          element={
-            <React.Suspense fallback={<LoadingPage />}>
-              <Editor />
-            </React.Suspense>
-          }
-        />
-        <Route
-          path="*"
-          element={
-            <React.Suspense fallback={<LoadingPage />}>
-              {' '}
-              <NotFound />
-            </React.Suspense>
-          }
-        />
-      </Routes>
+      <Suspense fallback={<LoadingPage />}>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/markdown" element={<Markdown />} />
+          <Route path="/markdown/:id" element={<ShowDetail />} />
+          <Route path="/editor" element={<Editor />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   </ChakraProvider>
 )

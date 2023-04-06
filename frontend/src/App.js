@@ -56,7 +56,11 @@ const App = () => {
             this project builds a small online portfolio website by using the
             react framework and the spring boot framework. The front-end tech
             stack used are: React, Chakra-ui, threeJS, etc. The source address
-            is <Link href="https://github.com/ccg1024/full-stack">here</Link>.
+            is{' '}
+            <Link href="https://github.com/ccg1024/full-stack/tree/main/frontend">
+              here
+            </Link>
+            .
           </Paragraph>
           <Box align="center" my={4}>
             <MyRouterLink to="/">
