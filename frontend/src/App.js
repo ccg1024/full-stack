@@ -1,4 +1,5 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { ChevronRightIcon } from '@chakra-ui/icons'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link as MyRouterLink } from 'react-router-dom'
@@ -21,6 +22,24 @@ import { GridItem } from './components/grid-item'
 import './css/App.css'
 
 const App = () => {
+  const [loading, setLoading] = useState(true)
+  const [markList, setMarkList] = useState([])
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    axios
+      .get('http://127.0.0.1:5000/api/notes', {
+        headers: { Authorization: token }
+      })
+      .then(res => {
+        const { status } = res.data
+        if (status === 0) {
+          setLoading(false)
+          setMarkList(res.data.notes)
+        }
+      })
+      .catch(err => console.log(err))
+  }, [])
   return (
     <>
       <Container maxW="container.lg">
@@ -99,20 +118,28 @@ const App = () => {
             Details
           </Heading>
           <SimpleGrid columns={[1, 1, 2]} gap={6}>
-            <GridItem
-              id={-1}
-              title="default-test"
-              thumbnail="/images/markdown/markdown.png"
-            >
-              this is default show markdown, just for test
-            </GridItem>
-            <GridItem
-              id={-1}
-              title="default-test"
-              thumbnail="/images/markdown/markdown.png"
-            >
-              this is default show markdown, just for test
-            </GridItem>
+            {loading ? (
+              <GridItem
+                id={-1}
+                title="default-test"
+                thumbnail="/images/markdown/markdown.png"
+              >
+                this is default show markdown, just for test
+              </GridItem>
+            ) : (
+              markList.map(item => {
+                return (
+                  <GridItem
+                    key={item.id}
+                    id={item.id}
+                    title={item.title}
+                    thumbnail="/images/markdown/markdown.png"
+                  >
+                    this is default show markdown, just for test
+                  </GridItem>
+                )
+              })
+            )}
           </SimpleGrid>
         </Section>
       </Container>

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import {
   Box,
   Heading,
@@ -45,6 +45,7 @@ const Editor = () => {
   const [value, setValue] = useState('')
   const [title, setTitle] = useState('Unnamed')
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const imgRef = useRef(null)
 
   const handleInputChange = e => {
     setValue(e.target.value)
@@ -54,12 +55,28 @@ const Editor = () => {
     if (value.trim() === '') {
       return
     }
-    console.log('current file content: ', value)
-    // send data to server
-    const noteContent = { title, content: value }
+    // to find img
+    const form = new FormData()
+    // let finalImage = {}
+    if (imgRef.current) {
+      const { current: imgs } = imgRef
+      for (let key in imgs) {
+        const pat = new RegExp(`.*?!\\[.*?\\]\\(${key}\\)`)
+        if (pat.test(value)) {
+          // finalImage[key] = imgs[key]
+          form.append(key, imgs[key])
+        } else {
+          URL.revokeObjectURL(imgs[key])
+          delete imgs[key]
+        }
+      }
+    }
+    form.append('title', title)
+    form.append('content', value)
+
     const token = localStorage.getItem('token')
     axios
-      .post('http://127.0.0.1:5000/editor', noteContent, {
+      .post('http://127.0.0.1:5000/editor', form, {
         headers: { Authorization: token }
       })
       .then(res => {
@@ -72,6 +89,18 @@ const Editor = () => {
       .catch(err => {
         console.log(err)
       })
+  }
+
+  const imageChange = e => {
+    const [file] = e.target.files
+    if (file) {
+      const tempUrl = URL.createObjectURL(file)
+      setValue(v => v + `\n![${file.name}](${tempUrl})`)
+      imgRef.current = {
+        ...imgRef.current,
+        [tempUrl]: file
+      }
+    }
   }
 
   const colors = {
@@ -128,6 +157,12 @@ const Editor = () => {
 
         <Section delay={0.3}>
           <Flex justifyContent="right">
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={imageChange}
+              formEncType="multipart/form-data"
+            />
             <Button colorScheme="teal" onClick={handleSaveNote}>
               Save markdown
             </Button>

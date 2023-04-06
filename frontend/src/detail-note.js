@@ -61,6 +61,8 @@ const DetailHead = ({ title, pubTime }) => {
 const DetailNote = () => {
   const [loading, setLoading] = useState(true)
   const [note, setNote] = useState()
+  const [title, setTitle] = useState()
+  const [pubTime, setPubTime] = useState()
   const [search] = useSearchParams()
   const id = search.get('id')
 
@@ -70,26 +72,23 @@ const DetailNote = () => {
   }
 
   useEffect(() => {
+    const token = localStorage.getItem('token')
     axios
-      .get('')
+      .get('http://127.0.0.1:5000/api/notes/' + id, {
+        headers: { Authorization: token }
+      })
       .then(res => {
         const { status } = res.data
         if (status === 0) {
           setLoading(false)
+          setTitle(res.data.title)
+          setPubTime(res.data.pubTime)
           setNote(res.data.content)
         }
       })
       .catch(err => {
         console.log('got err from detail-note: ', err)
       })
-
-    // TEST: just for fron test
-    setTimeout(() => {
-      setLoading(false)
-      fetch('/default.md')
-        .then(r => r.text())
-        .then(text => setNote(text))
-    }, 2000)
   }, [])
 
   return (
@@ -101,7 +100,7 @@ const DetailNote = () => {
           exit={{ y: -20, opacity: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <DetailHead />
+          <DetailHead title={title} pubTime={pubTime} />
         </motion.div>
       </AnimatePresence>
       {loading ? (
