@@ -18,6 +18,7 @@ const Editor = React.lazy(() => import('./editor'))
 const Markdown = React.lazy(() => import('./markdown'))
 const NotFound = React.lazy(() => import('./notfound'))
 const ShowDetail = React.lazy(() => import('./components/show-markdow'))
+const DetailNote = React.lazy(() => import('./detail-note'))
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
@@ -35,6 +36,7 @@ root.render(
           <Route path="/markdown" element={<Markdown />} />
           <Route path="/markdown/:id" element={<ShowDetail />} />
           <Route path="/editor" element={<Editor />} />
+          <Route path="detail-markdown" element={<DetailNote />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>

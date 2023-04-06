@@ -9,12 +9,14 @@ import {
   Link,
   Button,
   useColorModeValue,
-  Text
+  Text,
+  SimpleGrid
 } from '@chakra-ui/react'
 
 import Section from './libs/sections'
 import Paragraph from './libs/paragraph'
 import { BioSection, BioYear } from './libs/bio'
+import { GridItem } from './components/grid-item'
 
 import './css/App.css'
 
@@ -96,7 +98,22 @@ const App = () => {
           <Heading as="h3" variant="section-title">
             Details
           </Heading>
-          <Paragraph>Some work or blog to show...</Paragraph>
+          <SimpleGrid columns={[1, 1, 2]} gap={6}>
+            <GridItem
+              id={-1}
+              title="default-test"
+              thumbnail="/images/markdown/markdown.png"
+            >
+              this is default show markdown, just for test
+            </GridItem>
+            <GridItem
+              id={-1}
+              title="default-test"
+              thumbnail="/images/markdown/markdown.png"
+            >
+              this is default show markdown, just for test
+            </GridItem>
+          </SimpleGrid>
         </Section>
       </Container>
     </>

@@ -1,11 +1,5 @@
 import axios from 'axios'
-import remarkGfm from 'remark-gfm'
-import remarkMath from 'remark-math'
-import rehypeKatex from 'rehype-katex'
 import React, { useState } from 'react'
-import ReactMarkdown from 'react-markdown'
-import SyntaxHighlighter from 'react-syntax-highlighter'
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import {
   Box,
   Heading,
@@ -25,25 +19,11 @@ import {
   ModalCloseButton,
   useDisclosure
 } from '@chakra-ui/react'
-import {
-  Quote,
-  MarkdownTd,
-  MarkdownTh,
-  MarkdownTr,
-  MarkdownLink,
-  MarkdownText,
-  MarkdownImage,
-  MarkdownOList,
-  MarkdownTable,
-  MarkdownTbody,
-  MarkdownThead,
-  MarkdownUList,
-  MarkdownListItem
-} from './components/markdown_cutom'
 import Section from './libs/sections'
 
 import 'katex/dist/katex.min.css'
 import './css/markdown_example.css'
+import { DetailContent } from './libs/trans-markdown'
 
 const EditorBanner = () => {
   return (
@@ -63,7 +43,7 @@ const EditorBanner = () => {
 
 const Editor = () => {
   const [value, setValue] = useState('')
-  const [title, setTitle] = useState('')
+  const [title, setTitle] = useState('Unnamed')
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const handleInputChange = e => {
@@ -71,6 +51,9 @@ const Editor = () => {
   }
 
   const handleSaveNote = () => {
+    if (value.trim() === '') {
+      return
+    }
     console.log('current file content: ', value)
     // send data to server
     const noteContent = { title, content: value }
@@ -91,6 +74,11 @@ const Editor = () => {
       })
   }
 
+  const colors = {
+    quote: useColorModeValue('whiteAlpha.500', 'blackAlpha.500'),
+    code: useColorModeValue('#3D7AED', '#FF63C3')
+  }
+
   return (
     <>
       <Container maxW="container.lg">
@@ -99,12 +87,19 @@ const Editor = () => {
         </Section>
 
         <Section delay={0.2}>
+          <Heading as="h3" size="lg">
+            File title
+          </Heading>
           <Input
             mb={4}
             borderColor={useColorModeValue('#000000', '#ffffff')}
             placeholder="Note Title"
+            value={title}
             onChange={e => setTitle(e.target.value)}
           />
+          <Heading as="h3" size="lg">
+            Note content
+          </Heading>
           <SimpleGrid columns={[1, 1, 2]} spacing={2} pb={8}>
             <Box>
               <Textarea
@@ -124,51 +119,9 @@ const Editor = () => {
               height="md"
               overflowY="auto"
               borderRadius="md"
+              padding={2}
             >
-              <ReactMarkdown
-                customStyle={{ innerHeight: '100%' }}
-                className="markdown_editor"
-                children={value}
-                components={{
-                  blockquote: Quote,
-                  a: MarkdownLink,
-                  ul: MarkdownUList,
-                  ol: MarkdownOList,
-                  li: MarkdownListItem,
-                  p: MarkdownText,
-                  img: MarkdownImage,
-                  table: MarkdownTable,
-                  thead: MarkdownThead,
-                  tbody: MarkdownTbody,
-                  tr: MarkdownTr,
-                  td: MarkdownTd,
-                  th: MarkdownTh,
-                  code({ node, inline, className, children, ...props }) {
-                    const match = /language-(\w+)/.exec(className || '')
-                    return !inline && match ? (
-                      <SyntaxHighlighter
-                        children={String(children).replace(/\n$/, '')}
-                        style={docco}
-                        language={match[1]}
-                        showLineNumbers="true"
-                        PreTag="div"
-                        customStyle={{
-                          marginTop: '10px',
-                          marginBottom: '10px',
-                          borderRadius: '5px'
-                        }}
-                        {...props}
-                      />
-                    ) : (
-                      <code className={className} {...props}>
-                        {children}
-                      </code>
-                    )
-                  }
-                }}
-                remarkPlugins={[remarkGfm, remarkMath]}
-                rehypePlugins={[rehypeKatex]}
-              />
+              <DetailContent colors={colors}>{value}</DetailContent>
             </Box>
           </SimpleGrid>
         </Section>
