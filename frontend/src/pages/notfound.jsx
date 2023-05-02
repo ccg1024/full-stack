@@ -10,9 +10,11 @@ import {
   Button
 } from '@chakra-ui/react'
 
+import Layout from '../components/layout'
+
 const NotFound = () => {
   return (
-    <>
+    <Layout>
       <Container maxW="container.lg">
         <AnimatePresence mode="wait" initial={true}>
           <motion.div
@@ -33,7 +35,7 @@ const NotFound = () => {
           </motion.div>
         </AnimatePresence>
       </Container>
-    </>
+    </Layout>
   )
 }
 

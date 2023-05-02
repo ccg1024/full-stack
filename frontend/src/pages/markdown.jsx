@@ -3,10 +3,15 @@ import React, { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Box, Container, Heading, SimpleGrid } from '@chakra-ui/react'
 
-import Section from './libs/sections'
-import { MarkDownGridItem } from './components/grid-item'
+import Section from '../libs/sections'
+import { MarkDownGridItem } from '../components/grid-item'
+import Layout from '../components/layout'
+import { useAuth } from '../libs/auth'
 
 const Markdown = () => {
+  // got token
+  const { token } = useAuth()
+
   const [loading, setLoading] = useState(true)
   const [markdownList, setMarkdowList] = useState([])
 
@@ -27,7 +32,7 @@ const Markdown = () => {
   }, [])
 
   return (
-    <>
+    <Layout>
       <Container maxW="container.lg">
         <AnimatePresence mode="wait" initial={true}>
           <motion.div
@@ -72,7 +77,7 @@ const Markdown = () => {
           </Section>
         </SimpleGrid>
       </Container>
-    </>
+    </Layout>
   )
 }
 

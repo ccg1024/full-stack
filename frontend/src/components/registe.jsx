@@ -20,6 +20,7 @@ import {
   FormErrorMessage,
   FormContainer
 } from './form-input'
+import { useAuth } from '../libs/auth'
 
 const Registe = () => {
   const [username, setUsername] = useState('')
@@ -30,6 +31,7 @@ const Registe = () => {
   const [pswdCharErr, setPswdCharErr] = useState('')
   const [pswdBCharErr, setPswdBCharErr] = useState('')
   const [registeMessage, setRegisteMessage] = useState('')
+  const { onLogin } = useAuth()
 
   const usernameChange = e => setUsername(e.target.value)
   const passwordChange = e => setPassword(e.target.value)
@@ -37,10 +39,6 @@ const Registe = () => {
 
   const submitData = e => {
     e.preventDefault()
-    console.log(username)
-    console.log(password)
-    console.log(passwordB)
-
     setUserCharErr('')
     setPswdCharErr('')
     setPswdBCharErr('')
@@ -73,7 +71,7 @@ const Registe = () => {
           setIsVisible(false)
           const { token } = res.data
           localStorage.setItem('token', token)
-          PubSub.publish(pubsubPipe.authenticate, true)
+          onLogin(token)
         } else {
           e.target.disabled = false
           setRegisteMessage('The username is exist')

@@ -19,6 +19,7 @@ import {
   FormErrorMessage,
   FormContainer
 } from './form-input'
+import { useAuth } from '../libs/auth'
 
 const Login = () => {
   const [username, setUsername] = useState('')
@@ -27,6 +28,7 @@ const Login = () => {
   const [userCharErr, setUserCharErr] = useState('')
   const [pswdCharErr, setPswdCharErr] = useState('')
   const [loginMessage, setLoginMessage] = useState('')
+  const { onLogin } = useAuth()
 
   const usernameChange = event => {
     setUsername(event.target.value)
@@ -65,7 +67,7 @@ const Login = () => {
           setIsVisible(false)
           const { token } = res.data
           localStorage.setItem('token', token)
-          PubSub.publish(pubsubPipe.authenticate, true)
+          onLogin(token)
         } else {
           e.target.disabled = false
           setLoginMessage('wrong username or password')

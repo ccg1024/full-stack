@@ -19,11 +19,13 @@ import {
   ModalCloseButton,
   useDisclosure
 } from '@chakra-ui/react'
-import Section from './libs/sections'
 
 import 'katex/dist/katex.min.css'
-import './css/markdown_example.css'
-import { DetailContent } from './libs/trans-markdown'
+import '../css/markdown_example.css'
+
+import Section from '../libs/sections'
+import { DetailContent } from '../libs/trans-markdown'
+import Layout from '../components/layout'
 
 const EditorBanner = () => {
   return (
@@ -109,7 +111,7 @@ const Editor = () => {
   }
 
   return (
-    <>
+    <Layout>
       <Container maxW="container.lg">
         <Section delay={0.1}>
           <EditorBanner />
@@ -183,7 +185,7 @@ const Editor = () => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </>
+    </Layout>
   )
 }
 

@@ -1,4 +1,4 @@
-import PubSub from 'pubsub-js'
+import PubSub, { publish } from 'pubsub-js'
 import React, { useState, useEffect } from 'react'
 import {
   Container,
@@ -21,6 +21,7 @@ import { Global } from '@emotion/react'
 import Logo from './logo'
 import { pubsubPipe } from '../config/pubsub'
 import ThemeToggleButton from './theme-toggle'
+import { useAuth } from '../libs/auth'
 
 const NavbarLinkStyle = ({ colors }) => {
   return (
@@ -51,37 +52,19 @@ const RouteLinkItem = ({ to, children }) => {
   )
 }
 
+const showLogin = (mode = 'login') => {
+  PubSub.publish(pubsubPipe.loginRegiste, mode)
+}
+
 // Container 让内容保持在中间，宽度中等
 const Navbar = () => {
+  // got login
+  const { token, onLogout } = useAuth()
+
   const colors = {
     bg: useColorModeValue('#88ccca', '#88ccca'),
     colorActive: useColorModeValue('black', 'black'),
     colorInactive: useColorModeValue('black', 'white')
-  }
-  const [loginToken, setLoginToken] = useState(localStorage.getItem('token'))
-
-  const showLogin = (module = 'login') => {
-    if (module === 'login') {
-      PubSub.publish(pubsubPipe.loginRegiste, 'login')
-    } else if (module === 'registe') {
-      PubSub.publish(pubsubPipe.loginRegiste, 'registe')
-    }
-  }
-
-  useEffect(() => {
-    const token = PubSub.subscribe(pubsubPipe.authenticate, (_msg, _data) => {
-      setLoginToken(localStorage.getItem('token'))
-    })
-
-    return () => {
-      PubSub.unsubscribe(token)
-    }
-  }, [])
-
-  const handleLoginOut = () => {
-    localStorage.removeItem('token')
-    setLoginToken(null)
-    // maybe some code to tell server login out
   }
 
   return (
@@ -119,16 +102,15 @@ const Navbar = () => {
             mt={{ base: 4, md: 0 }}
             ml={{ base: 0, md: 4 }}
           >
-            {loginToken ? (
+            {token ? (
               <>
                 <RouteLinkItem to="/markdown">Markdown</RouteLinkItem>
                 <RouteLinkItem to="/editor">Editor</RouteLinkItem>
-                <RouteLinkItem to="/others">Others</RouteLinkItem>
                 <Link
-                  href="/"
+                  href="#"
                   color={colors.colorInactive}
                   _hover={{ textDecoration: 'none' }}
-                  onClick={handleLoginOut}
+                  onClick={onLogout}
                 >
                   Login out
                 </Link>
@@ -167,7 +149,7 @@ const Navbar = () => {
                   aria-label="Options"
                 />
                 <MenuList>
-                  {loginToken ? (
+                  {token ? (
                     <>
                       <NavLink to="/">
                         <MenuItem>About</MenuItem>
@@ -178,14 +160,11 @@ const Navbar = () => {
                       <NavLink to="/editor">
                         <MenuItem>Editor</MenuItem>
                       </NavLink>
-                      <NavLink to="/others">
-                        <MenuItem>Others</MenuItem>
-                      </NavLink>
                       <Link
                         href="/"
                         color={colors.colorInactive}
                         _hover={{ textDecoration: 'none' }}
-                        onClick={handleLoginOut}
+                        onClick={onLogout}
                       >
                         <MenuItem>Login out</MenuItem>
                       </Link>

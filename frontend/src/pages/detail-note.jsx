@@ -15,8 +15,9 @@ import {
   Center
 } from '@chakra-ui/react'
 
-import Section from './libs/sections'
-import { DetailContent } from './libs/trans-markdown'
+import Section from '../libs/sections'
+import { DetailContent } from '../libs/trans-markdown'
+import Layout from '../components/layout'
 
 const DetailHeadStyle = () => {
   return (
@@ -92,27 +93,29 @@ const DetailNote = () => {
   }, [])
 
   return (
-    <Container maxW="container.lg">
-      <AnimatePresence>
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -20, opacity: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <DetailHead title={title} pubTime={pubTime} />
-        </motion.div>
-      </AnimatePresence>
-      {loading ? (
-        <Center>
-          <Spinner size="lg" />
-        </Center>
-      ) : (
-        <Section delay={0.2}>
-          <DetailContent colors={colors}>{note}</DetailContent>
-        </Section>
-      )}
-    </Container>
+    <Layout>
+      <Container maxW="container.lg">
+        <AnimatePresence>
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -20, opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <DetailHead title={title} pubTime={pubTime} />
+          </motion.div>
+        </AnimatePresence>
+        {loading ? (
+          <Center>
+            <Spinner size="lg" />
+          </Center>
+        ) : (
+          <Section delay={0.2}>
+            <DetailContent colors={colors}>{note}</DetailContent>
+          </Section>
+        )}
+      </Container>
+    </Layout>
   )
 }
 
